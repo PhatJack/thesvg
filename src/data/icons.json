@@ -101030,6 +101030,24 @@
     "collection": "brands"
   },
   {
+    "slug": "thaco",
+    "title": "Thaco",
+    "aliases": [],
+    "hex": "F90000",
+    "categories": [
+      "Automotive",
+			"Logistics",
+			"Agriculture"
+    ],
+    "variants": {
+      "default": "/icons/thaco/default.svg"
+    },
+    "license": "CC0-1.0",
+    "url": "https://thacogroup.vn/",
+    "dateAdded": "2026-05-23",
+    "collection": "brands"
+  },
+  {
     "slug": "thangs",
     "title": "Thangs",
     "aliases": [],
