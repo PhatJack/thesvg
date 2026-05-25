@@ -106103,14 +106103,13 @@
 		"slug": "vib",
 		"title": "Vietnam International Bank (VIB)",
 		"aliases": [],
-		"hex": "0066b3",
+		"hex": "0066B3",
 		"categories": [
       "Finance"
     ],
     "variants": {
       "default": "/icons/vib/default.svg",
-      "mono": "/icons/vib/mono.svg",
-			"logo": "/icons/vib/logo.svg"
+      "mono": "/icons/vib/mono.svg"
     },
     "license": "CC0-1.0",
     "url": "https://www.vib.com.vn/vn/home",
