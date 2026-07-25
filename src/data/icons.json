@@ -49143,7 +49143,25 @@
     "dateAdded": "2026-03-07",
     "collection": "brands"
   },
+	{
+    "slug": "dis-chem-pharmacies",
+    "title": "Dis-chem Pharmacies",
+    "aliases": [],
+    "hex": "00A049",
+    "categories": [
+      "Healthcare"
+    ],
+    "variants": {
+      "default": "/icons/dis-chem-pharmacies/default.svg",
+      "wordmark": "/icons/dis-chem-pharmacies/wordmark.svg"
+    },
+    "license": "Unknown",
+    "url": "https://www.dischem.co.za/",
+    "dateAdded": "2026-07-25",
+    "collection": "brands"
+  },
   {
+
     "slug": "discloud",
     "title": "Discloud",
     "aliases": [],
