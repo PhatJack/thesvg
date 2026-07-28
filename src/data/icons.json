@@ -549,6 +549,24 @@
     "dateAdded": "2026-03-07",
     "collection": "brands"
   },
+	{
+    "slug": "abn-amro",
+    "title": "Abn Amro",
+    "aliases": [],
+    "hex": "009286",
+    "categories": [
+      "Finance"
+    ],
+    "variants": {
+      "default": "/icons/abn-amro/default.svg",
+      "mono": "/icons/abn-amro/mono.svg",
+      "wordmark": "/icons/abn-amro/wordmark.svg"
+    },
+    "license": "Unknown",
+    "url": "https://www.abnamro.com/en/home",
+    "dateAdded": "2026-07-28",
+    "collection": "brands"
+  },
   {
     "slug": "aboutdotme",
     "title": "about.me",
