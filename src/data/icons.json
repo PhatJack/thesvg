@@ -47119,6 +47119,25 @@
     "dateAdded": "2026-03-09",
     "collection": "brands"
   },
+	 {
+    "slug": "dai-ichi-life-holdings",
+    "title": "Dai-ichi Life Holdings",
+    "aliases": [],
+    "hex": "4EDAFF",
+    "categories": [
+      "Insurance",
+      "Finance"
+    ],
+    "variants": {
+      "default": "/icons/dai-ichi-life-holdings/default.svg",
+      "wordmark": "/icons/dai-ichi-life-holdings/wordmark.svg",
+      "mono": "/icons/dai-ichi-life-holdings/mono.svg"
+    },
+    "license": "Unknown",
+    "url": "https://www.daiichilife-group.com/en/",
+    "dateAdded": "2026-07-29",
+    "collection": "brands"
+  },
   {
     "slug": "dai-stablecoin",
     "title": "Dai",
