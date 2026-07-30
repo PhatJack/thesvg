@@ -62719,6 +62719,23 @@
     "dateAdded": "2026-03-07",
     "collection": "brands"
   },
+	{
+    "slug": "global-power-synergy",
+    "title": "Global Power Synergy",
+    "aliases": [],
+    "hex": "20335A",
+    "categories": [
+      "Energy"
+    ],
+    "variants": {
+      "default": "/icons/global-power-synergy/color.svg",
+      "wordmark": "/icons/global-power-synergy/wordmark.svg"
+    },
+    "license": "Unknown",
+    "url": "https://www.gpscgroup.com/en/home",
+    "dateAdded": "2026-07-30",
+    "collection": "brands"
+  },
   {
     "slug": "globo-tv",
     "title": "Globo",
