@@ -62728,7 +62728,7 @@
       "Energy"
     ],
     "variants": {
-      "default": "/icons/global-power-synergy/color.svg",
+      "default": "/icons/global-power-synergy/default.svg",
       "wordmark": "/icons/global-power-synergy/wordmark.svg"
     },
     "license": "Unknown",
