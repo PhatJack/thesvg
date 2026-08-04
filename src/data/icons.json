@@ -115722,6 +115722,25 @@
     "dateAdded": "2026-03-07",
     "collection": "brands"
   },
+	{
+    "slug": "unicharm",
+    "title": "Unicharm",
+    "aliases": [],
+    "hex": "3C459A",
+    "categories": [
+      "Healthcare Goods"
+    ],
+    "variants": {
+      "default": "/icons/unicharm/default.svg",
+      "mono": "/icons/unicharm/mono.svg",
+      "wordmark": "/icons/unicharm/wordmark.svg"
+    },
+    "license": "Unknown",
+    "url": "https://www.unicharm.co.in/en/home.html",
+		"guidelines": "https://www.unicharm.co.in/en/company/charmring.html",
+    "dateAdded": "2026-08-04",
+    "collection": "brands"
+  },
   {
     "slug": "unicode",
     "title": "Unicode",
