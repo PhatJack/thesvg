@@ -20,6 +20,7 @@ const ROOT = join(__dirname, "../..");
 const ICONS_JSON = join(ROOT, "src/data/icons.json");
 const PACKAGES_DIR = join(ROOT, "packages");
 const PUBLIC_DIR = join(ROOT, "public");
+const DATA_DIR = join(ROOT, "src/data");
 
 interface IconEntry {
   slug: string;
@@ -151,6 +152,16 @@ function main() {
 
   const packages = getPackages();
 
+  // Written to src/data/ (not read via fs at app runtime) so docs-content.ts
+  // can pull the current release tag via a plain JSON import - bundler-safe
+  // in both server and client code, unlike readFileSync. Regenerated (and
+  // recommitted) on every build, same treatment as the other src/data/*.json
+  // outputs.
+  const thesvgPkgVersion: string = JSON.parse(
+    readFileSync(join(PACKAGES_DIR, "thesvg/package.json"), "utf-8"),
+  ).version;
+  writeFileSync(join(DATA_DIR, "thesvg-version.json"), JSON.stringify({ version: thesvgPkgVersion }, null, 2) + "\n");
+
   const llmsTxt = buildLlmsTxt({
     formattedIconCount,
     collectionCount,
@@ -203,6 +214,7 @@ theSVG provides ${formattedIconCount}+ SVG icons across ${collectionCount} colle
 ## Links
 
 - Website: https://thesvg.org
+- Docs & Guides: https://thesvg.org/docs
 - Compare Libraries: https://thesvg.org/compare
 - GitHub: https://github.com/glincker/thesvg
 - npm: https://www.npmjs.com/package/thesvg
@@ -283,6 +295,8 @@ function buildLlmsFullTxt(data: {
   const categoryList = formatCategoryList(categories, 50);
   const runtimeDepsSummary = summarizeRuntimeDeps(packages);
 
+  const docsLink = `Full human-readable framework guides, best practices, tricks, and FAQ: https://thesvg.org/docs`;
+
   return `# theSVG - Full LLM Context
 
 > The largest open-source brand SVG icon library. ${formattedIconCount}+ SVG icons with multi-variant support.
@@ -290,6 +304,8 @@ function buildLlmsFullTxt(data: {
 ## Overview
 
 theSVG (thesvg.org) is a free, open-source library of ${formattedIconCount}+ SVG icons across ${collectionCount} collections: ${collectionSummary}. Every icon includes core metadata such as a name, hex color, categories, and license. Where present, icons also include a website URL, guideline links, and up to 7 SVG variants.
+
+${docsLink}
 
 ## Quick Start
 
@@ -479,6 +495,7 @@ MIT for the codebase and tooling. Brand icons are property of their respective t
 ## Links
 
 - Website: https://thesvg.org
+- Docs & Guides: https://thesvg.org/docs
 - GitHub: https://github.com/glincker/thesvg
 - npm: https://www.npmjs.com/package/thesvg
 - Compare Libraries: https://thesvg.org/compare

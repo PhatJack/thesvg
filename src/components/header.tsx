@@ -1,10 +1,10 @@
 "use client";
 
-import { useCallback, useEffect, useId, useRef, useState, useSyncExternalStore, type ComponentType } from "react";
+import { useCallback, useEffect, useId, useMemo, useRef, useState, useSyncExternalStore, type ComponentType } from "react";
 import Link from "next/link";
 import posthog from "posthog-js";
 import { usePathname, useRouter } from "next/navigation";
-import { ArrowRight, Binary, Braces, ChevronDown, Component, FileCode, FileText, Link2, Menu, Moon, Package, Plus, Search, Sparkles, Sun, X } from "lucide-react";
+import { ArrowRight, Binary, BookOpen, Braces, ChevronDown, Component, FileCode, FileText, Link2, Menu, Moon, Package, Plus, Search, Sparkles, Sun, X } from "lucide-react";
 import { TheSVGMark } from "@/components/icons/the-svg-mark";
 import { useTheme } from "next-themes";
 import { useSettingsStore } from "@/lib/stores/settings-store";
@@ -28,6 +28,7 @@ import type { Collection, IconEntry } from "@/lib/icons";
 import { COLLECTIONS_LIST } from "@/lib/collections-meta";
 import { loadIconsManifest } from "@/lib/icons-manifest";
 import { useIconSearch } from "@/lib/hooks/use-icon-search";
+import { searchDocs } from "@/lib/docs-search-index";
 import { cn } from "@/lib/utils";
 import { withUtm } from "@/lib/external-link";
 
@@ -159,6 +160,7 @@ export function Header({ collectionCounts }: HeaderProps) {
   } = useIconSearch({ query, source: "header", limit: 6 });
   const [recentViewedIcons, setRecentViewedIcons] = useState<IconEntry[]>([]);
   const hasQuery = query.trim().length >= 2;
+  const docsMatches = useMemo(() => searchDocs(query), [query]);
   const showDropdown = focused;
 
   // Keep the dropdown mounted briefly after showDropdown flips false so it
@@ -400,7 +402,8 @@ export function Header({ collectionCounts }: HeaderProps) {
                 role="listbox"
               >
                 {hasQuery ? (
-                  suggestions.length > 0 ? (
+                  <>
+                  {suggestions.length > 0 ? (
                     /* Search results */
                     <div className="px-2 py-1.5">
                       <p className="px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-muted-foreground/50">
@@ -480,7 +483,27 @@ export function Header({ collectionCounts }: HeaderProps) {
                         Submit this icon
                       </Link>
                     </div>
-                  )
+                  )}
+                  {docsMatches.length > 0 && (
+                    <div className="border-t border-border/30 px-2 py-1.5 dark:border-white/[0.04]">
+                      <p className="px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-muted-foreground/50">
+                        Docs
+                      </p>
+                      {docsMatches.map((entry) => (
+                        <Link
+                          key={entry.url}
+                          href={entry.url}
+                          onClick={() => setFocused(false)}
+                          className="flex items-center gap-2.5 rounded-lg px-2 py-2 text-left transition-all duration-150 hover:translate-x-0.5 hover:bg-accent/50"
+                        >
+                          <BookOpen className="h-4 w-4 shrink-0 text-muted-foreground/60" />
+                          <span className="min-w-0 flex-1 truncate text-sm text-foreground">{entry.title}</span>
+                          <ArrowRight className="h-3 w-3 shrink-0 text-muted-foreground/30" />
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                  </>
                 ) : (
                   /* Quick links when focused with no query */
                   <div className="px-2 py-2">
@@ -588,6 +611,7 @@ export function Header({ collectionCounts }: HeaderProps) {
                       Pages
                     </p>
                     {[
+                      { href: "/docs", icon: BookOpen, label: "Docs & Guides" },
                       { href: "/extensions", icon: Package, label: "Extensions & Integrations" },
                       { href: "/blog", icon: FileText, label: "Blog & Updates" },
                       { href: "/submit", icon: Sparkles, label: "Submit an Icon" },
@@ -630,14 +654,14 @@ export function Header({ collectionCounts }: HeaderProps) {
               below can claim the full width. */}
           <div className="ml-auto flex shrink-0 items-center gap-0.5 sm:ml-0 sm:gap-1">
             <Link
-              href="/extensions"
+              href="/docs"
               className={cn(
                 "hidden h-8 items-center gap-1.5 rounded-lg border border-border/50 px-2.5 text-xs font-medium text-muted-foreground transition-all duration-200 hover:border-foreground/20 hover:bg-accent hover:text-foreground md:inline-flex dark:border-white/[0.08] dark:hover:border-white/20 dark:hover:bg-white/[0.06]",
-                pathname === "/extensions" && "border-foreground/20 bg-accent text-foreground dark:border-white/20 dark:bg-white/[0.06]"
+                pathname.startsWith("/docs") && "border-foreground/20 bg-accent text-foreground dark:border-white/20 dark:bg-white/[0.06]"
               )}
             >
-              <Package className="h-3.5 w-3.5" />
-              Extensions
+              <BookOpen className="h-3.5 w-3.5" />
+              Docs
             </Link>
 
             <SubmitButton />
