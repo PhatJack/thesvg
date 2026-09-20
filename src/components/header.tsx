@@ -313,11 +313,16 @@ export function Header({ collectionCounts }: HeaderProps) {
             </Link>
           </div>
 
-          {/* Collection switcher */}
+          {/* Collection switcher. "brands" is excluded - the logo already
+              links home to the all-brands view. Lower-traffic collections
+              (community, auth-badges) move into the "More" dropdown instead
+              of their own pills, so the row doesn't get crowded. */}
           <nav className="hidden items-center gap-0.5 md:flex" aria-label="Icon collections">
-            {COLLECTIONS_LIST.map((meta) => {
-              const href = meta.id === "brands" ? "/" : `/collection/${meta.id}`;
-              const isActive = meta.id === "brands" ? !activeCollection : activeCollection === meta.id;
+            {COLLECTIONS_LIST.filter(
+              (meta) => !["brands", "community", "auth-badges"].includes(meta.id)
+            ).map((meta) => {
+              const href = `/collection/${meta.id}`;
+              const isActive = activeCollection === meta.id;
               const Icon = meta.icon;
               return (
                 <Link
@@ -336,6 +341,31 @@ export function Header({ collectionCounts }: HeaderProps) {
                 </Link>
               );
             })}
+
+            <DropdownMenu>
+              <DropdownMenuTrigger className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-medium text-muted-foreground transition-all hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                More
+                <ChevronDown className="h-3 w-3 opacity-60" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start">
+                <DropdownMenuGroup>
+                  {COLLECTIONS_LIST.filter((meta) => ["community", "auth-badges"].includes(meta.id)).map(
+                    (meta) => {
+                      const Icon = meta.icon;
+                      return (
+                        <DropdownMenuItem
+                          key={meta.id}
+                          render={<Link href={`/collection/${meta.id}`} />}
+                        >
+                          <Icon className={cn("h-3.5 w-3.5", meta.color)} />
+                          {meta.shortLabel}
+                        </DropdownMenuItem>
+                      );
+                    }
+                  )}
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </nav>
 
           {/* Center: search with dropdown. On mobile the form takes the
