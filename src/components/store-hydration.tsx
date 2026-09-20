@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useFavoritesStore } from "@/lib/stores/favorites-store";
 import { useRecentsStore } from "@/lib/stores/recents-store";
 import { useMobilePrefsStore } from "@/lib/stores/mobile-prefs-store";
+import { useSidebarStore } from "@/lib/stores/sidebar-store";
 import { useCompactHeroStore } from "@/lib/stores/compact-hero-store";
 
 /**
@@ -12,8 +13,8 @@ import { useCompactHeroStore } from "@/lib/stores/compact-hero-store";
  * The stores set `skipHydration: true`, so their first client render uses
  * the same default state the server prerendered. That keeps the first pass
  * identical to the shipped HTML and avoids a hydration mismatch (React #418)
- * for returning visitors who have saved favorites, recents, mobile prefs, or
- * a dismissed compact hero.
+ * for returning visitors who have saved favorites, recents, mobile prefs, a
+ * dismissed compact hero, or a collapsed sidebar rail.
  * We load the stored values here, one tick later, and the affected consumers
  * re-render with them.
  */
@@ -22,6 +23,7 @@ export function StoreHydration() {
     useFavoritesStore.persist.rehydrate();
     useRecentsStore.persist.rehydrate();
     useMobilePrefsStore.persist.rehydrate();
+    useSidebarStore.persist.rehydrate();
     useCompactHeroStore.persist.rehydrate();
   }, []);
 
